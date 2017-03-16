@@ -51,3 +51,6 @@ launchctl load -w "$HOME/Library/LaunchAgents/homebrew.mxcl.$REQUESTED_PHP.plist
 # Update the PATH variable.
 echo "${CYAN}Updating the PATH variable...${NC}"
 sed -i '' "s#export PATH=\"\$(brew --prefix homebrew/php/$CURRENT_PHP)/bin:\$PATH\"#export PATH=\"\$(brew --prefix homebrew/php/$REQUESTED_PHP)/bin:\$PATH\"#g" $BASH_PROFILE_FILE
+
+echo "${GREEN}Switched successfully to $REQUESTED_PHP \xE2\x9C\x94${NC}"
+echo "${GREEN}Do not forget to source your shell profile: source ~/.zshrc${NC}"
