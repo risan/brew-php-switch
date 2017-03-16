@@ -24,6 +24,7 @@ if [ "$REQUESTED_VERSION" == "$CURRENT_VERSION" ]; then
   exit 1
 fi
 
+BASH_PROFILE_FILE="$HOME/.zshrc"
 CURRENT_PHP="php$CURRENT_VERSION"
 REQUESTED_PHP="php$REQUESTED_VERSION"
 
@@ -45,4 +46,8 @@ brew services start "homebrew/php/$REQUESTED_PHP"
 
 # Adding the requested PHP service to launch agent.
 echo "${CYAN}Adding $REQUESTED_PHP service to launch agent...${NC}\n"
-launchctl load -w "~/Library/LaunchAgents/homebrew.mxcl.$REQUESTED_PHP.plist"
+launchctl load -w "$HOME/Library/LaunchAgents/homebrew.mxcl.$REQUESTED_PHP.plist"
+
+# Update the PATH variable.
+echo "${CYAN}Updating the PATH variable...${NC}"
+sed -i '' "s#export PATH=\"\$(brew --prefix homebrew/php/$CURRENT_PHP)/bin:\$PATH\"#export PATH=\"\$(brew --prefix homebrew/php/$REQUESTED_PHP)/bin:\$PATH\"#g" $BASH_PROFILE_FILE
