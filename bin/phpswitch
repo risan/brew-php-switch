@@ -30,7 +30,7 @@ REQUESTED_PHP="php$REQUESTED_VERSION"
 
 # Stoping the current PHP service.
 printf "${CYAN}Stoping the $CURRENT_PHP service...${NC}\n"
-brew services stop "homebrew/php/$CURRENT_PHP"
+brew services stop "$CURRENT_PHP"
 
 # Unlinking the current PHP brew formula.
 printf "${CYAN}Unlinking the $CURRENT_PHP...${NC}\n"
@@ -42,7 +42,7 @@ brew link "$REQUESTED_PHP"
 
 # Starting the requested PHP service.
 printf "${CYAN}Starting the $REQUESTED_PHP service...${NC}\n"
-brew services start "homebrew/php/$REQUESTED_PHP"
+brew services start "$REQUESTED_PHP"
 
 # Adding the requested PHP service to launch agent.
 printf "${CYAN}Adding $REQUESTED_PHP service to launch agent...${NC}\n"
@@ -50,7 +50,7 @@ launchctl load -w "$HOME/Library/LaunchAgents/homebrew.mxcl.$REQUESTED_PHP.plist
 
 # Update the PATH variable.
 printf "${CYAN}Updating the PATH variable...${NC}\n"
-sed -i '' "s#export PATH=\"\$(brew --prefix homebrew/php/$CURRENT_PHP)/bin:\$PATH\"#export PATH=\"\$(brew --prefix homebrew/php/$REQUESTED_PHP)/bin:\$PATH\"#g" $ZSHRC_FILE
+sed -i '' "s#export PATH=\"\$(brew --prefix $CURRENT_PHP)/bin:\$PATH\"#export PATH=\"\$(brew --prefix $REQUESTED_PHP)/bin:\$PATH\"#g" $ZSHRC_FILE
 
 # Success message.
 printf "${GREEN}Switched successfully to $REQUESTED_PHP \xE2\x9C\x94\n${NC}\n"
